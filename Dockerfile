@@ -5,8 +5,12 @@ RUN apk --update add --no-cache --virtual .build-deps \
         linux-headers \
         python3-dev \
         py3-pip \
-    && apk add --no-cache python3 pcre-dev \
-    && pip install --no-cache-dir flask uwsgi \
+    && apk add --no-cache \
+        pcre-dev \
+        python3 \
+    && pip install --no-cache-dir \
+        flask \
+        uwsgi \
     && apk del .build-deps
 WORKDIR /iam
 COPY iam ./
