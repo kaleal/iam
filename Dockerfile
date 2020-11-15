@@ -1,5 +1,6 @@
 FROM alpine:3.12.1
 RUN adduser -D -h /iam run
+COPY iam/requirements.txt /iam
 RUN apk --update add --no-cache --virtual .build-deps \
         build-base \
         linux-headers \
@@ -8,9 +9,7 @@ RUN apk --update add --no-cache --virtual .build-deps \
     && apk add --no-cache \
         pcre-dev \
         python3 \
-    && pip install --no-cache-dir \
-        flask \
-        uwsgi \
+    && pip install --no-cache-dir -r /iam/requirements.txt \
     && apk del .build-deps
 WORKDIR /iam
 COPY iam ./
